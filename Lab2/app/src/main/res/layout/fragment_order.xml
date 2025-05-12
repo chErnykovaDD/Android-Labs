@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:padding="16dp"
+    android:background="@color/background"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Замовлення піци"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/primary"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/nameInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Ваше ім'я"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:layout_constraintTop_toBottomOf="@id/textViewTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/textViewPizzaType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Виберіть тип піци:"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/primary"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/nameInputLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/textViewPizzaType"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <RadioButton
+            android:id="@+id/radioPepperoni"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Пепероні"
+            android:textSize="14sp"
+            android:duplicateParentState="true" />
+
+        <RadioButton
+            android:id="@+id/radioMargherita"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Маргарита"
+            android:textSize="14sp"
+            android:duplicateParentState="true" />
+
+        <RadioButton
+            android:id="@+id/radioFourCheese"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Чотири сири"
+            android:textSize="14sp"
+            android:duplicateParentState="true" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textViewSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Виберіть розмір піци:"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/primary"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/radioGroupType"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/textViewSize"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <RadioButton
+            android:id="@+id/radioSmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Мала"
+            android:textSize="14sp"
+            android:duplicateParentState="true" />
+
+        <RadioButton
+            android:id="@+id/radioMedium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Середня"
+            android:textSize="14sp"
+            android:duplicateParentState="true" />
+
+        <RadioButton
+            android:id="@+id/radioLarge"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Велика"
+            android:textSize="14sp"
+            android:duplicateParentState="true" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textViewAdditional"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Додаткові інгредієнти:"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/primary"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/radioGroupSize"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <CheckBox
+        android:id="@+id/checkCheese"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Додатковий сир"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/textViewAdditional"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <CheckBox
+        android:id="@+id/checkMushrooms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Гриби"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/checkCheese"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <CheckBox
+        android:id="@+id/checkOlives"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Оливки"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/checkMushrooms"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnOrder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Замовити"
+        android:textSize="16sp"
+        android:textAllCaps="false"
+        android:padding="12dp"
+        android:layout_marginTop="16dp"
+        app:cornerRadius="8dp"
+        app:layout_constraintTop_toBottomOf="@id/checkOlives"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
