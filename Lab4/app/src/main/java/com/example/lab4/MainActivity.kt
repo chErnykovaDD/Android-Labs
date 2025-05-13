@@ -37,6 +37,8 @@ class MainActivity : AppCompatActivity() {
     private var audioUri: Uri? = null
     private var videoUri: Uri? = null
 
+    private var videoPosition: Int = 0
+
     private val AUDIO_PERMISSION_REQUEST = 101
     private val VIDEO_PERMISSION_REQUEST = 102
 
@@ -108,14 +110,26 @@ class MainActivity : AppCompatActivity() {
 
         playVideoButton.setOnClickListener {
             videoUri?.let { uri ->
-                videoView.setVideoURI(uri)
-                videoView.start()
-                updateVideoControlButtons(isPlaying = true)
+                if (!::videoView.isInitialized || videoView.duration == 0) {
+                    videoView.setVideoURI(uri)
+
+                    videoView.setOnPreparedListener { mp ->
+                        if (videoPosition > 0) {
+                            videoView.seekTo(videoPosition)
+                        }
+                        videoView.start()
+                        updateVideoControlButtons(isPlaying = true)
+                    }
+                } else {
+                    videoView.start()
+                    updateVideoControlButtons(isPlaying = true)
+                }
             }
         }
 
         pauseVideoButton.setOnClickListener {
             if (videoView.isPlaying) {
+                videoPosition = videoView.currentPosition
                 videoView.pause()
                 updateVideoControlButtons(isPlaying = false)
             }
@@ -124,17 +138,20 @@ class MainActivity : AppCompatActivity() {
         stopVideoButton.setOnClickListener {
             if (videoView.isPlaying || videoView.currentPosition > 0) {
                 videoView.stopPlayback()
+                videoPosition = 0
                 videoView.setVideoURI(videoUri)
                 updateVideoControlButtons(isPlaying = false, isSelected = true)
             }
         }
 
         videoView.setOnCompletionListener {
+            videoPosition = 0
             updateVideoControlButtons(isPlaying = false)
         }
 
         videoView.setOnErrorListener { _, _, _ ->
             Toast.makeText(this, "Помилка відтворення відео", Toast.LENGTH_SHORT).show()
+            videoPosition = 0
             updateVideoControlButtons(isPlaying = false, isSelected = true)
             true
         }
@@ -230,8 +247,8 @@ class MainActivity : AppCompatActivity() {
                     videoTitleText.text = "Вибране відео"
                 }
 
-                videoView.stopPlayback()
-                videoView.setVideoURI(null)
+                videoPosition = 0
+                videoView.setVideoURI(uri)
 
                 updateVideoControlButtons(isPlaying = false, isSelected = true)
             }
@@ -277,6 +294,20 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        if (::videoView.isInitialized && videoView.currentPosition > 0) {
+            outState.putInt("video_position", videoView.currentPosition)
+        } else {
+            outState.putInt("video_position", videoPosition)
+        }
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        videoPosition = savedInstanceState.getInt("video_position", 0)
     }
 
     override fun onDestroy() {
